@@ -14,12 +14,15 @@
 
 ##脚本
 ```sql
-create table user(
-id int auto_increment primary  key not null,
-account_id varchar(100),
-name varchar (50),
-token varchar (36),
-gmt_create BIGINT,
-gmt_modified BIGINT
+create table USER
+(
+  ID           INTEGER default NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_7F44F138_5EDF_4D31_9168_8EE9633A3070" auto_increment,
+  ACCOUNT_ID   VARCHAR(100),
+  NAME         VARCHAR(50),
+  TOKEN        CHAR(36),
+  GMT_CREATE   BIGINT,
+  GMT_MODIFIED BIGINT,
+  constraint USER_PK
+    primary key (ID)
 );
 ```
