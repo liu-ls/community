@@ -1,33 +1,13 @@
 package life.school.community.dto;
 
+import lombok.Data;
+
+@Data
 public class GithubUser {
-    public String name;
+    private String name;
     private Long id;
-    private  String bio;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
+    private String bio;
+    private String avatarUrl;
 
     @Override
     public String toString() {

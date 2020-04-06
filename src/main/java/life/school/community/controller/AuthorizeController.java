@@ -32,21 +32,20 @@ public class AuthorizeController {
 
     @Autowired
     private UserMapper userMapper;
-    
+
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
-                           HttpServletResponse response){
+                           HttpServletResponse response) {
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
-        accessTokenDTO.setClient_id("clientId");
-        accessTokenDTO.setClient_secret("clientSecret");
+        accessTokenDTO.setClient_id(clientId);
+        accessTokenDTO.setClient_secret(clientSecret);
         accessTokenDTO.setCode(code);
-        accessTokenDTO.setRedirect_uri("redirectUri");
+        accessTokenDTO.setRedirect_uri(redirectUri);
         accessTokenDTO.setState(state);
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser githubUser = githubProvider.getUser(accessToken);
-/*        System.out.println(githubUser.getName());*/
-        if(githubUser != null){
+        if (githubUser != null && githubUser.getId() != null) {
             User user = new User();
             String token = UUID.randomUUID().toString();
             user.setToken(token);
@@ -54,16 +53,12 @@ public class AuthorizeController {
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            user.setAvatarUrl(githubUser.getAvatarUrl());
             userMapper.insert(user);
             response.addCookie(new Cookie("token", token));
-            //登录成功，写cookies和session
-            /*request.getSession().setAttribute("user",githubUser);*/
-            //获取到session对象，将当前用户放到其中
-            //银行账户创建成功
             return "redirect:/";
-            //重定向到根目录
-        }else{
-            //登录失败，重新登录
+        } else {
+            // 登录失败，重新登录
             return "redirect:/";
         }
     }
