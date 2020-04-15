@@ -21,3 +21,8 @@ body{
 .list-group{
     margin-top: 25px;
 }
+
+.menu-color{
+    color: #999;
+    font-size:13px;
+}
