@@ -1,32 +1,77 @@
-body{
+body {
     background-color: #efefef;
 }
 
-.main{
+.main {
     background-color: white;
     margin: 30px;
 }
 
-.btn-publish{
+.btn-publish {
     float: right;
     margin-bottom: 20px;
 }
 
-.text-desc{
+.text-desc {
     font-size: 12px;
     font-weight: normal;
     color: #999;
 }
 
-.list-group{
+.list-group {
     margin-top: 25px;
 }
 
-.menu-color{
+.menu-color {
     color: #999;
-    font-size:13px;
+    font-size: 12px;
 }
 
-.jumbotron{
+.jumbotron {
     margin: 100px;
+}
+
+.media-heading {
+    margin-top: 18px;
+}
+
+.comment {
+    margin: 10px 0;
+}
+
+.btn-primary {
+    float: right;
+    margin-bottom: 10px;
+    width: 80px;
+    font-size: 16px;
+}
+
+.comment-sp {
+    margin-top: 0;
+    size: ;
+}
+
+.comments {
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.comment-user {
+    margin-top: 10px;
+}
+
+.icon-menu {
+    color: #999999;
+    margin-top: 5px;
+}
+
+.menu-icon {
+    font-size: 17px;
+    margin-right: 7px;
+    cursor: pointer;
+}
+
+.menu-icon:hover {
+    color: #499ef3;
 }

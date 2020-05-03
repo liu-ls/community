@@ -4,6 +4,7 @@ import life.school.community.dto.PaginationDTO;
 import life.school.community.dto.QuestionDTO;
 import life.school.community.exception.CustomizeErrorCode;
 import life.school.community.exception.CustomizeException;
+import life.school.community.mapper.QuestionExtMapper;
 import life.school.community.mapper.QuestionMapper;
 import life.school.community.mapper.UserMapper;
 import life.school.community.model.Question;
@@ -22,6 +23,9 @@ public class QuestionService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     @Autowired
     private QuestionMapper questionMapper;
@@ -62,7 +66,7 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public PaginationDTO list(Integer userId, Integer page, Integer size) {
+    public PaginationDTO list(Long userId, Integer page, Integer size) {
 
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer totalPage;
@@ -105,7 +109,7 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public QuestionDTO getById(Integer id) {
+    public QuestionDTO getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         if (question == null) {
             throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
@@ -120,9 +124,12 @@ public class QuestionService {
     public void createOrUpdate(Question question) {
         if (question.getId() == null){
             //创建
-            questionMapper.insert(question);
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
+            question.setViewCount(0);
+            question.setLikeCount(0);
+            question.setCommentCount(0);
+            questionMapper.insert(question);
         }else {
             //更新
             Question updateQuestion = new Question();
@@ -139,5 +146,12 @@ public class QuestionService {
             }
 
         }
+    }
+
+    public void incView(Long id) {
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+        questionExtMapper.incView(question);
     }
 }

@@ -25,6 +25,8 @@
 [Flyway](https://flywaydb.org/getstarted/firststeps/maven)
 
 [lombok](https://projectlombok.org/)
+
+[Postman](https://chrome.google.com/webstore/detail/tabbed-postman-rest-clien/coohjcphdfgbiolnekdpbcijmhambjff)
 ## 脚本
 ```sql
 create table USER
@@ -39,5 +41,5 @@ create table USER
 ```
 ```bash
 mvn flyway:migrate
-mvn -Dmybatis.generator.overwrite = true mybatis-generator：generate
+mvn mybatis-generator:generate
 ```
