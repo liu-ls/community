@@ -14,10 +14,11 @@
 <div th:insert="~{navigation :: nav}"></div>
 <div class="container-fluid main">
     <div class="row">
+        <!--左侧主要内容-->
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <!--正文-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3><span th:text="${question.title}"></span></h3>
+                <h3 class="question-title"><span th:text="${question.title}"></span></h3>
                 <span class="text-desc">
                 作者：<span th:text="${question.user.name}"></span> |
                 发布时间：<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span> |
@@ -26,42 +27,48 @@
                 <hr>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
                 <br>
-                <hr>
+                <hr style="margin-bottom: 8px;" >
                 <a th:href="@{'/publish/'+${question.id}}" class="menu-color"
                    th:if="${session.user != null && session.user.id == question.creator}">
                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑
                 </a>
-                <hr>
+                <!--<hr>-->
             </div>
             <!--回复-->
-            <h4>
-                &emsp;<span th:text="${question.commentCount}"></span> 个回复
-            </h4>
-            <hr class="comment-sp">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comments" th:each="comment : ${comments}">
-                <div class="media">
-                    <div class="media-left">
-                        <a href="#">
-                            <img class="media-object img-rounded" th:src="${comment.user.avatarUrl}" width="65px"
-                                 height="65px">
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading comment-user">
-                            <a th:text="${comment.user.name}"></a>
-                        </h4>
-                        <div th:text="${comment.content}"></div>
-                        <div class="icon-menu">
-                            <span class="glyphicon glyphicon-thumbs-up menu-icon"></span>
-                            <span class="glyphicon glyphicon-comment menu-icon"></span>
-                            <span class="pull-right" th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd')}"></span>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 question-comment">
+                <h4>
+                    <span th:text="${question.commentCount}"></span> 个回复
+                </h4>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comments" th:each="comment : ${comments}">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object img-rounded" th:src="${comment.user.avatarUrl}" width="65px"
+                                     height="65px">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading comment-user">
+                                <a th:text="${comment.user.name}"></a>
+                            </h4>
+                            <div th:text="${comment.content}"></div>
+                            <div class="icon-menu">
+                                <span class="glyphicon glyphicon-thumbs-up menu-icon"></span>
+                                <span class="glyphicon glyphicon-comment menu-icon"></span>
+                                <span class="pull-right"
+                                      th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd')}"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!--回复输入框-->
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment_section">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 question-submit" id="comment_section">
+                <h4>
+                    提交回复
+                </h4>
+                <hr class="comment-sp">
                 <div class="media">
                     <div class="media-left">
                         <a href="#">
