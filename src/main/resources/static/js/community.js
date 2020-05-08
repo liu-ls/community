@@ -98,7 +98,7 @@ function collapseComments(e) {
                     }).append(mediaLeftElement).append(mediaBodyElement);
 
                     var commentElement = $("<div/>", {
-                        "class": "col-lg-12 col-md-12 col-sm-12 col-xs-12 comments"
+                        "class": "col-lg-12 col-md-12 col-sm-12 col-xs-12 sec-comments"
                     }).append(mediaElement);
 
                     subCommentContainer.prepend(commentElement);
