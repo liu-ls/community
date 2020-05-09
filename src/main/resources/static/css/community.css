@@ -74,6 +74,20 @@ body {
     line-height: 25px;
     font-size: 15px;
 }
+
+.publish-tag{
+    display: none;
+    margin-top: 10px;
+}
+
+.tab-tags{
+    padding-top: 5px;
+}
+.tag-label{
+    white-space: normal;
+    margin: 5px 5px;
+    display: inline-block;
+}
 .comment {
     margin: 10px 0;
 }

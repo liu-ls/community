@@ -164,7 +164,10 @@ public class QuestionService {
         if (StringUtils.isBlank(queryDTO.getTag())) {
             return new ArrayList<>();
         }
-        //通过，分隔拿到所有得到标签
+        //通过'，'分隔拿到所有得到标签
+/*
+        select id,title,tag from question where tag regexp 'Spring Boot|Spring|Java' and id != 12
+*/
         String[] tags = StringUtils.split(queryDTO.getTag(), "，");
         String regexpTag = Arrays.stream(tags).collect(Collectors.joining("|"));
         Question question = new Question();
