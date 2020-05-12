@@ -2,7 +2,6 @@ package life.school.community.controller;
 
 import life.school.community.dto.AccessTokenDTO;
 import life.school.community.dto.GithubUser;
-import life.school.community.mapper.UserMapper;
 import life.school.community.model.User;
 import life.school.community.provider.GithubProvider;
 import life.school.community.service.UserService;

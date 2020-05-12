@@ -21,22 +21,25 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Service
 public class QuestionService {
 
     @Autowired
-    private UserMapper userMapper;
+    private QuestionMapper questionMapper;
 
     @Autowired
     private QuestionExtMapper questionExtMapper;
 
     @Autowired
-    private QuestionMapper questionMapper;
+    private UserMapper userMapper;
 
     public PaginationDTO list(Integer page, Integer size) {
 
         PaginationDTO paginationDTO = new PaginationDTO();
+
         Integer totalPage;
+
         Integer totalCount = (int) questionMapper.countByExample(new QuestionExample());
 
         if (totalCount % size == 0) {
@@ -56,25 +59,29 @@ public class QuestionService {
         //size*(page-1)
         Integer offset = size * (page - 1);
         QuestionExample questionExample = new QuestionExample();
+        //倒序
         questionExample.setOrderByClause("gmt_create desc");
-        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(new QuestionExample(), new RowBounds(offset, size));
+        List<Question> questions = questionMapper.selectByExampleWithRowbounds(questionExample, new RowBounds(offset, size));
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
         for (Question question : questions) {
             User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
-            BeanUtils.copyProperties(question, questionDTO);//快速将question中的对象copy到questionDTO中
+            //快速将question中的对象copy到questionDTO中
+            BeanUtils.copyProperties(question, questionDTO);
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
+
         paginationDTO.setData(questionDTOList);
         return paginationDTO;
     }
 
     public PaginationDTO list(Long userId, Integer page, Integer size) {
-
         PaginationDTO paginationDTO = new PaginationDTO();
+
         Integer totalPage;
+
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria()
                 .andCreatorEqualTo(userId);
@@ -100,16 +107,17 @@ public class QuestionService {
         QuestionExample example = new QuestionExample();
         example.createCriteria()
                 .andCreatorEqualTo(userId);
-        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(example, new RowBounds(offset, size));
+        List<Question> questions = questionMapper.selectByExampleWithRowbounds(example, new RowBounds(offset, size));
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
         for (Question question : questions) {
             User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
-            BeanUtils.copyProperties(question, questionDTO);//快速将question中的对象copy到questionDTO中
+            BeanUtils.copyProperties(question, questionDTO);
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
+
         paginationDTO.setData(questionDTOList);
         return paginationDTO;
     }
@@ -128,7 +136,7 @@ public class QuestionService {
 
     public void createOrUpdate(Question question) {
         if (question.getId() == null) {
-            //创建
+            // 创建
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
             question.setViewCount(0);
@@ -136,7 +144,7 @@ public class QuestionService {
             question.setCommentCount(0);
             questionMapper.insert(question);
         } else {
-            //更新
+            // 更新
             Question updateQuestion = new Question();
             updateQuestion.setGmtModified(System.currentTimeMillis());
             updateQuestion.setTitle(question.getTitle());
@@ -149,7 +157,6 @@ public class QuestionService {
             if (updated != 1) {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
-
         }
     }
 
@@ -165,10 +172,8 @@ public class QuestionService {
             return new ArrayList<>();
         }
         //通过'，'分隔拿到所有得到标签
-/*
-        select id,title,tag from question where tag regexp 'Spring Boot|Spring|Java' and id != 12
-*/
-        String[] tags = StringUtils.split(queryDTO.getTag(), "，");
+        /*select id,title,tag from question where tag regexp 'Spring Boot|Spring|Java' and id != 12*/
+        String[] tags = StringUtils.split(queryDTO.getTag(), ",");
         String regexpTag = Arrays.stream(tags).collect(Collectors.joining("|"));
         Question question = new Question();
         question.setId(queryDTO.getId());

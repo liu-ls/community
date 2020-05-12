@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 @Service
 public class NotificationService {
 
@@ -55,6 +54,8 @@ public class NotificationService {
         NotificationExample example = new NotificationExample();
         example.createCriteria()
                 .andReceiverEqualTo(userId);
+        //时间倒序
+        example.setOrderByClause("gmt_create desc");
 
         List<Notification> notifications = notificationMapper.selectByExampleWithRowbounds(example, new RowBounds(offset, size));
 
@@ -73,7 +74,6 @@ public class NotificationService {
         paginationDTO.setData(notificationDTOS);
         return paginationDTO;
     }
-
     //通知数
     public Long unreadCount(Long userId) {
         NotificationExample notificationExample = new NotificationExample();
