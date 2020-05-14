@@ -29,7 +29,7 @@
                     <input type="text" class="form-control" th:value="${title}" id="title" name="title"
                            placeholder="问题标题..." autocomplete="off">
                 </div>
-                <!--正向引入mardown Editor-->
+                <!--正向引入markdown Editor-->
                 <div class="form-group" id="question-editor">
                     <label for="description">问题补充（必填，参照右侧提示）</label>
                     <textarea style="display:none;" name="description" th:text="${description}" id="description"
@@ -44,7 +44,10 @@
                             path: "/js/lib/",
                             delay: 0,
                             watch: false,
-                            placeholder: "请输入问题描述"
+                            placeholder: "请输入问题描述",
+                            imageUpload    : true,
+                            imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                            imageUploadURL : "/file/upload"
                         });
                     });
                 </script>

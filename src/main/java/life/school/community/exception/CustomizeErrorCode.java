@@ -11,7 +11,8 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
     COMMENT_NOT_FOUND(2006,"回复的评论不存在了，要不要换个试试？？？"),
     CONTENT_IS_EMPTY(2007,"输入内容不能为空!"),
     NOTIFICATION_NOT_FOUND(2008,"兄弟你是读别人的信息吗？!"),
-    READ_NOTIFICATION_FAIL(2009,"消息莫菲是不翼而飞了？!");
+    READ_NOTIFICATION_FAIL(2009,"消息莫菲是不翼而飞了？!"),
+    FILE_UPLOAD_FAIL(2010,"消息莫菲是不翼而飞了？!");
 
     @Autowired
     public String getMessage() {
