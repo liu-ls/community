@@ -15,7 +15,7 @@ public class GithubProvider {
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)//设置连接超时时间
-                .readTimeout(20, TimeUnit.SECONDS)//设置读取超时时间
+                .readTimeout(30, TimeUnit.SECONDS)//设置读取超时时间
                 .retryOnConnectionFailure(false)
                 .build();
 
@@ -38,7 +38,7 @@ public class GithubProvider {
     public GithubUser getUser(String accessToken){
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)//设置连接超时时间
-                .readTimeout(20, TimeUnit.SECONDS)//设置读取超时时间
+                .readTimeout(30, TimeUnit.SECONDS)//设置读取超时时间
                 .retryOnConnectionFailure(false)
                 .build();
         Request request = new Request.Builder()

@@ -10,6 +10,14 @@ body {
     color: #999;
     font-size: 12px;
 }
+.text-des{
+    width: 700px;
+    display: inline-block;
+    overflow: hidden;
+    word-break: keep-all;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 .text-desc {
     font-size: 12px;
     font-weight: normal;
@@ -18,11 +26,21 @@ body {
 .list-group {
     margin-top: 25px;
 }
+.list-left{
+    margin-left: 25px;
+}
+.list-pic{
+    margin-left: 15px;
+}
+.page-align{
+    text-align: right;
+    margin-right: 40px;
+}
 .jumbotron {
     margin: 100px;
 }
 .media-heading {
-    margin-top: 18px;
+    margin-top: 10px;
 }
 .avatar-size{
     width: 65px;
@@ -139,7 +157,8 @@ body {
 
 .footer{
     text-align: center;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
+    margin-top: -5px;
     color: #666666;
 }
 .email{
