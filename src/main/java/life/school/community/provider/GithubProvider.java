@@ -13,7 +13,11 @@ import java.util.concurrent.TimeUnit;
 public class GithubProvider {
     public String getAccessToken(AccessTokenDTO accessTokenDTO) {
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)//设置连接超时时间
+                .readTimeout(20, TimeUnit.SECONDS)//设置读取超时时间
+                .retryOnConnectionFailure(false)
+                .build();
 
         RequestBody body = RequestBody.create(mediaType, JSON.toJSONString(accessTokenDTO));
         Request request = new Request.Builder()
@@ -33,8 +37,9 @@ public class GithubProvider {
 
     public GithubUser getUser(String accessToken){
         OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(20, TimeUnit.SECONDS)//设置连接超时时间
+                .connectTimeout(30, TimeUnit.SECONDS)//设置连接超时时间
                 .readTimeout(20, TimeUnit.SECONDS)//设置读取超时时间
+                .retryOnConnectionFailure(false)
                 .build();
         Request request = new Request.Builder()
                 .url("https://api.github.com/user?access_token="+ accessToken)
