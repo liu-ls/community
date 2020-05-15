@@ -8,10 +8,12 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @SpringBootApplication
 @MapperScan("life.school.community.mapper")
+@EnableScheduling
 public class CommunityApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
